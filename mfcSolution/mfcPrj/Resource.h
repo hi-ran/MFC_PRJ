@@ -9,6 +9,8 @@
 #define IDD_DlgImg                      103
 #define IDR_MAINFRAME                   128
 #define IDC_BTN_EDIT                    1000
+#define IDC_BTN_EDIT2                   1001
+#define IDC_BTN_DATA                    1001
 
 // Next default values for new objects
 // 
