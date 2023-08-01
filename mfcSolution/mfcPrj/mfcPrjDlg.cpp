@@ -150,17 +150,20 @@ void CmfcPrjDlg::OnBnClickedBtnEdit()
 	int nWidth = m_pDlgImage->m_image.GetWidth();
 	int nHeight = m_pDlgImage->m_image.GetHeight();
 	int nPitch = m_pDlgImage->m_image.GetPitch();
-	memset(fm, 0, nWidth * nHeight); 
+	//memset(fm, 0, nWidth * nHeight); 
 	
 	// 랜덤 좌표 생성
-	CRect rect;
-	m_pDlgImage->GetClientRect(&rect);
 	int x = rand() % nWidth;
 	int y = rand() % nHeight;
+	CRect rect;
+	m_pDlgImage->GetClientRect(&rect);
 
 	//자식Dlg 좌표 전달
 	m_pDlgImage->m_nDataCount = 1;
 	m_pDlgImage->m_ptData[0] = CPoint(x, y);
+
+	// 랜덤 원형의 중심 좌표 저장
+	m_ptRandomCircleCenter = CPoint(x, y);
 
 	m_pDlgImage->m_bDrawCircle = true; 
 	m_pDlgImage->Invalidate();
@@ -174,6 +177,10 @@ void CmfcPrjDlg::OnBnClickedBtnData()
 	int nHeight = m_pDlgImage->m_image.GetHeight();
 	int nPitch = m_pDlgImage->m_image.GetPitch();
 
+
+	//랜덤 원형 좌표 가져오기
+	CPoint center = m_ptRandomCircleCenter;
+
 	int nTh = 0x80;
 	int nSumX = 0;
 	int nSumY = 0;
@@ -181,7 +188,7 @@ void CmfcPrjDlg::OnBnClickedBtnData()
 	CRect rect(0, 0, nWidth, nHeight);
 	for (int j = rect.top; j < rect.bottom; j++) {
 		for (int i = rect.left; i < rect.right; i++) {
-			if (fm[j * nPitch + i] > nTh) { //중심값 구하기
+			if (fm[j * nPitch + i] > nTh) { // 중심값 구하기
 				nSumX += i;
 				nSumY += j;
 				nCount++;
@@ -193,7 +200,9 @@ void CmfcPrjDlg::OnBnClickedBtnData()
 	double dCenterY = (double)nSumY / nCount;
 
 	cout << dCenterX << "\t" << dCenterY << endl;
-
 }
+	
+
+
 
 
