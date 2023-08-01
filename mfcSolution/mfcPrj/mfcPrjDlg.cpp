@@ -111,6 +111,7 @@ BOOL CmfcPrjDlg::OnInitDialog()
 	m_pDlgImage->MoveWindow(0, 0, 800, 500);
 
 
+
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
 
@@ -152,16 +153,17 @@ void CmfcPrjDlg::OnBnClickedBtnEdit()
 	memset(fm, 0, nWidth * nHeight); 
 	
 	// 랜덤 좌표 생성
-	CRect rectParent;
-	m_pDlgImage->GetClientRect(&rectParent);
+	CRect rect;
+	m_pDlgImage->GetClientRect(&rect);
 	int x = rand() % nWidth;
 	int y = rand() % nHeight;
 
+	//자식Dlg 좌표 전달
 	m_pDlgImage->m_nDataCount = 1;
 	m_pDlgImage->m_ptData[0] = CPoint(x, y);
-	m_pDlgImage->Invalidate();
-	m_pDlgImage->UpdateWindow();
 
+	m_pDlgImage->m_bDrawCircle = true; 
+	m_pDlgImage->Invalidate();
 }
 
 

@@ -22,7 +22,7 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
-
+	
 	DECLARE_MESSAGE_MAP()
 
 
@@ -33,6 +33,7 @@ public:
 	void drawData(CDC* pDC);
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
+	bool m_bDrawCircle; // 초기화 화면
 };
 
 
