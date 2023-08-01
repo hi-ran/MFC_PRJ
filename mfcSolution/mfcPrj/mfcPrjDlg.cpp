@@ -35,8 +35,6 @@ public:
 // 구현입니다.
 protected:
 	DECLARE_MESSAGE_MAP()
-public:
-//	afx_msg void OnPaint();
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -49,7 +47,6 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
-//	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 
@@ -68,7 +65,6 @@ void CmfcPrjDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CmfcPrjDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
-//	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_DESTROY()
 	ON_BN_CLICKED(IDC_BTN_EDIT, &CmfcPrjDlg::OnBnClickedBtnEdit)
@@ -108,11 +104,11 @@ BOOL CmfcPrjDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
-	MoveWindow(0, 0, 1280, 800); //사이즈 지정
+	MoveWindow(0, 0, 800, 650); //사이즈 지정
 	m_pDlgImage = new CDlgImg; 
 	m_pDlgImage->Create(IDD_DlgImg, this); 
 	m_pDlgImage->ShowWindow(SW_SHOW);
-	m_pDlgImage->MoveWindow(0, 0, 640, 480);
+	m_pDlgImage->MoveWindow(0, 0, 800, 500);
 
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
@@ -144,6 +140,7 @@ void CmfcPrjDlg::OnDestroy()
 	if(m_pDlgImage) delete m_pDlgImage;
 }
 
+
 #define COLOR_YELLOW   RGB(255, 255, 0) 
 void CmfcPrjDlg::OnBnClickedBtnEdit()
 {
@@ -154,22 +151,18 @@ void CmfcPrjDlg::OnBnClickedBtnEdit()
 	int nPitch = m_pDlgImage->m_image.GetPitch();
 	memset(fm, 0, nWidth * nHeight); 
 	
-	// 랜덤 좌표
-	int x = rand() % nWidth; 
+	// 랜덤 좌표 생성
+	CRect rectParent;
+	m_pDlgImage->GetClientRect(&rectParent);
+	int x = rand() % nWidth;
 	int y = rand() % nHeight;
-	int radius = 50; //반지름 50 원형
 
-	CRect rect(x,x,y,y); // 선택영역
-	for (int j = rect.top; j < rect.bottom; j++) {
-		for (int i = rect.left; i < rect.right; i++) {
-			fm[j * nPitch + i] = 0x81; /*rand()%0xff*/
-		}
-	}
-
+	m_pDlgImage->m_nDataCount = 1;
+	m_pDlgImage->m_ptData[0] = CPoint(x, y);
 	m_pDlgImage->Invalidate();
+	m_pDlgImage->UpdateWindow();
+
 }
-
-
 
 
 void CmfcPrjDlg::OnBnClickedBtnData()
@@ -200,3 +193,5 @@ void CmfcPrjDlg::OnBnClickedBtnData()
 	cout << dCenterX << "\t" << dCenterY << endl;
 
 }
+
+

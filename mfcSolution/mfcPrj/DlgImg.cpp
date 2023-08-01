@@ -32,11 +32,12 @@ BEGIN_MESSAGE_MAP(CDlgImg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CDlgImg 메시지 처리기
+/*이미지 설정*/
 void CDlgImg::InitImage()
 {
-	int nWidth = 1000;
-	int nHeight = 1000;
+	//img defult 크기  
+	int nWidth = 800;
+	int nHeight = 500;
 	int nBpp = 8;
 
 	m_image.Create(nWidth, -nHeight, nBpp);
@@ -53,18 +54,18 @@ void CDlgImg::InitImage()
 	memset(fm, 0xff, nWidth * nHeight);
 }
 
-
+/*이미지 초기화*/
 BOOL CDlgImg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	MoveWindow(0, 0, 640, 480);
+	MoveWindow(0, 0, 800, 500);
 	InitImage();
 	
 	return TRUE;  
 }
 
-
+ /*그림판 설정*/
 void CDlgImg::OnPaint()
 {
 	CPaintDC dc(this); 
@@ -75,6 +76,7 @@ void CDlgImg::OnPaint()
 	drawData(&dc);
 }
 
+ /*노란 원형 그리기*/
 #define COLOR_YELLOW   RGB(255, 255, 0) 
 void CDlgImg::drawData(CDC* pDC)
 {
@@ -85,7 +87,7 @@ void CDlgImg::drawData(CDC* pDC)
 
 	for (int i = 0; i < m_nDataCount; i++) {
 		rect.SetRect(m_ptData[i], m_ptData[i]); 
-		rect.InflateRect(2, 2); 
+		rect.InflateRect(5, 5);  
 		pDC->Ellipse(rect);
 	}
 	pDC->SelectObject(pOldPen);
