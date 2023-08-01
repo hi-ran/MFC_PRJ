@@ -8,7 +8,6 @@
 #define IDD_MFCPRJ_DIALOG               102
 #define IDD_DlgImg                      103
 #define IDR_MAINFRAME                   128
-#define IDC_BUTTON1                     1000
 #define IDC_BTN_EDIT                    1000
 
 // Next default values for new objects

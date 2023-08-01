@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include "DlgImg.h"
 
 
 // CmfcPrjDlg 대화 상자
@@ -11,6 +12,11 @@ class CmfcPrjDlg : public CDialogEx
 // 생성입니다.
 public:
 	CmfcPrjDlg(CWnd* pParent = nullptr);	// 표준 생성자입니다.
+
+	CDlgImg * m_pDlgImage;
+	CImage m_image;
+	int m_nDataCount = 0; //몇개 그릴것인지
+	CPoint m_ptData[MAX_POINT]; //좌표
 
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
@@ -28,7 +34,10 @@ protected:
 	// 생성된 메시지 맵 함수
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
-	afx_msg void OnPaint();
+//	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnDestroy();
+	afx_msg void OnBnClickedBtnEdit();
 };

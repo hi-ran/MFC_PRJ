@@ -75,13 +75,14 @@ void CDlgImg::OnPaint()
 	drawData(&dc);
 }
 
-#define COLOR_RED   RGB(0xff,0,0) 
+#define COLOR_YELLOW   RGB(255, 255, 0) 
 void CDlgImg::drawData(CDC* pDC)
 {
 	CRect rect;
 	CPen pen;
-	pen.CreatePen(PS_SOLID, 5, COLOR_RED);
+	pen.CreatePen(PS_SOLID, 2, COLOR_YELLOW); //색상
 	CPen* pOldPen = pDC->SelectObject(&pen);
+
 	for (int i = 0; i < m_nDataCount; i++) {
 		rect.SetRect(m_ptData[i], m_ptData[i]); 
 		rect.InflateRect(2, 2); 
