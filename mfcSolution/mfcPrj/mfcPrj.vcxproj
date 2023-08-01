@@ -183,6 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DlgImg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="mfcPrj.h" />
     <ClInclude Include="mfcPrjDlg.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DlgImg.cpp" />
     <ClCompile Include="mfcPrj.cpp" />
     <ClCompile Include="mfcPrjDlg.cpp" />
     <ClCompile Include="pch.cpp">
