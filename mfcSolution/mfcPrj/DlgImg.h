@@ -14,6 +14,7 @@ public:
 	CImage m_image;
 	int m_nDataCount = 1; //몇개 그릴것인지
 	CPoint m_ptData[MAX_POINT]; //좌표
+	CPoint m_ptCenter; //무게중심 점 
 
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME

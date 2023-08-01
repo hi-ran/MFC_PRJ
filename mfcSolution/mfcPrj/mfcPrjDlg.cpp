@@ -142,15 +142,14 @@ void CmfcPrjDlg::OnDestroy()
 }
 
 
-#define COLOR_YELLOW   RGB(255, 255, 0) 
 void CmfcPrjDlg::OnBnClickedBtnEdit()
 {
 	// 정보가져오기
 	unsigned char* fm = (unsigned char*)m_pDlgImage->m_image.GetBits();
 	int nWidth = m_pDlgImage->m_image.GetWidth();
 	int nHeight = m_pDlgImage->m_image.GetHeight();
-	int nPitch = m_pDlgImage->m_image.GetPitch();
-	//memset(fm, 0, nWidth * nHeight); 
+	int nPitch = m_pDlgImage->m_image.GetPitch(); 
+	//memset(fm, 0, nWidth * nHeight);  // 초기화 되어 무게중심 못구함 주석 필요
 	
 	// 랜덤 좌표 생성
 	int x = rand() % nWidth;
@@ -164,6 +163,10 @@ void CmfcPrjDlg::OnBnClickedBtnEdit()
 
 	// 랜덤 원형의 중심 좌표 저장
 	m_ptRandomCircleCenter = CPoint(x, y);
+
+	//무게중심 빨간점 표시
+	m_pDlgImage->m_ptCenter = CPoint(x, y);
+
 
 	m_pDlgImage->m_bDrawCircle = true; 
 	m_pDlgImage->Invalidate();
@@ -198,6 +201,7 @@ void CmfcPrjDlg::OnBnClickedBtnData()
 
 	double dCenterX = (double)nSumX / nCount; //int*int= int -> 하나를 double 형변환 
 	double dCenterY = (double)nSumY / nCount;
+
 
 	cout << dCenterX << "\t" << dCenterY << endl;
 }

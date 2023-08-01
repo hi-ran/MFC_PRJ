@@ -69,6 +69,7 @@ BOOL CDlgImg::OnInitDialog()
 
  /*그림판 설정*/
 #define COLOR_YELLOW   RGB(255, 255, 0) 
+#define COLOR_RED   RGB(0xff,0,0)
 void CDlgImg::OnPaint()
 {
 	CPaintDC dc(this); 
@@ -78,7 +79,8 @@ void CDlgImg::OnPaint()
 
 	//초기화면에 원형이 안나오려면 false 상태인 OnPaint 함수에 draw 넣기 
 	if (m_bDrawCircle) 
-	{
+	{	
+		//노란 원 표시
 		CRect rect;
 		CPen pen;
 		pen.CreatePen(PS_SOLID, 2, COLOR_YELLOW); 
@@ -89,7 +91,15 @@ void CDlgImg::OnPaint()
 			rect.InflateRect(50, 50);
 			dc.Ellipse(rect);
 		}
+		//dc.SetPixel(m_ptCenter.x, m_ptCenter.y, COLOR_RED);
 		dc.SelectObject(pOldPen);
+
+		//중심 점 표시
+		CBrush centerBrush(COLOR_RED);
+		dc.SelectObject(&centerBrush);
+		int centerSize = 2; 
+		rect.SetRect(m_ptCenter.x - centerSize, m_ptCenter.y - centerSize, m_ptCenter.x + centerSize, m_ptCenter.y + centerSize);
+		dc.Ellipse(rect);
 	}
 }
 
