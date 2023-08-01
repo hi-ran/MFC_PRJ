@@ -20,7 +20,7 @@ public:
 	CPoint m_ptRandomCircleCenter; //랜덤 원형 좌표 
 	CPoint m_ptCenter; //무게중심 점 
 
-// 대화 상자 데이터입니다.
+// 대화 상자 데이터입니다.	
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_MFCPRJ_DIALOG };
 #endif

@@ -12,7 +12,7 @@ public:
 	virtual ~CDlgImg();
 
 	CImage m_image;
-	int m_nDataCount = 50; //몇개 그릴것인지
+	int m_nDataCount = 1; //몇개 그릴것인지
 	CPoint m_ptData[MAX_POINT]; //좌표
 	CPoint m_ptCenter; //무게중심 점 
 
@@ -31,10 +31,10 @@ private:
 	void InitImage(); //그림판 size
 
 public:
-	void drawData(CDC* pDC);
+	//void drawData(CDC* pDC);
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
-	bool m_bDrawCircle; // 초기화 화면
+	bool m_bDrawCircle; // 초기 화면 FALSE
 };
 
 

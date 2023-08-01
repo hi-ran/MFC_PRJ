@@ -54,7 +54,7 @@ void CDlgImg::InitImage()
 	memset(fm, 0xff, nWidth * nHeight);
 }
 
-/*이미지 초기화*/
+/*이미지 초기 화면 구성*/
 BOOL CDlgImg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -62,7 +62,7 @@ BOOL CDlgImg::OnInitDialog()
 	MoveWindow(0, 0, 800, 500);
 	InitImage();
 	
-	m_bDrawCircle = false; 
+	m_bDrawCircle = false; //원 false
 
 	return TRUE;  
 }
@@ -77,7 +77,6 @@ void CDlgImg::OnPaint()
 	if (m_image)
 		m_image.Draw(dc, 0, 0);
 
-	//초기화면에 원형이 안나오려면 false 상태인 OnPaint 함수에 draw 넣기 
 	if (m_bDrawCircle) 
 	{	
 		//노란 원 표시
@@ -86,25 +85,27 @@ void CDlgImg::OnPaint()
 		pen.CreatePen(PS_SOLID, 2, COLOR_YELLOW); 
 		CPen* pOldPen = dc.SelectObject(&pen);
 
-		//랜덤 원크기
-		int radius = rand() % 81 + 20; //20~100
+		//랜덤 원크기 설정(반지름 20~100)
+		int radius = rand() % 81 + 20; 
 
-		for (int i = 0; i < m_nDataCount; i++) {
-			rect.SetRect(m_ptData[i], m_ptData[i]);
-			rect.InflateRect(radius, radius);
-			dc.Ellipse(rect);
+		for (int i = 0; i < m_nDataCount; i++) { //몇 개 그릴것인지 설정
+			rect.SetRect(m_ptData[i], m_ptData[i]); //사각형 좌표 설정
+			rect.InflateRect(radius, radius); //랜덤 크기 설정
+			dc.Ellipse(rect); //원
 		}
-		//dc.SetPixel(m_ptCenter.x, m_ptCenter.y,2,  COLOR_RED);
-		dc.SelectObject(pOldPen);
+		dc.SelectObject(pOldPen); 
 
 		//중심 점 표시
 		CBrush centerBrush(COLOR_RED);
 		dc.SelectObject(&centerBrush);
 		int centerSize = 2; 
-		rect.SetRect(m_ptCenter.x - centerSize, m_ptCenter.y - centerSize, m_ptCenter.x + centerSize, m_ptCenter.y + centerSize);
-		dc.Ellipse(rect);
+		rect.SetRect(m_ptCenter.x - centerSize, m_ptCenter.y - centerSize, m_ptCenter.x + centerSize, m_ptCenter.y + centerSize); //중심좌표 기준 사각형 설정
+		dc.Ellipse(rect); 
 	}
 }
+//초기 화면에 원형이 안나오려면 false 상태인 OnPaint 함수에 draw 넣기 
+
+
 
  /*노란 원형 그리기*/
 //void CDlgImg::drawData(CDC* pDC)

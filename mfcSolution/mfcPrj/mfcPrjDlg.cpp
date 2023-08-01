@@ -104,13 +104,12 @@ BOOL CmfcPrjDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
-	MoveWindow(0, 0, 800, 650); //사이즈 지정
+	//초기화 창 사이즈 지정
+	MoveWindow(0, 0, 800, 650); 
 	m_pDlgImage = new CDlgImg; 
 	m_pDlgImage->Create(IDD_DlgImg, this); 
 	m_pDlgImage->ShowWindow(SW_SHOW);
 	m_pDlgImage->MoveWindow(0, 0, 800, 500);
-
-
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -144,15 +143,15 @@ void CmfcPrjDlg::OnDestroy()
 
 void CmfcPrjDlg::OnBnClickedBtnEdit()
 {
-	// 정보가져오기
+	// 객체 정보가져오기
 	unsigned char* fm = (unsigned char*)m_pDlgImage->m_image.GetBits();
 	int nWidth = m_pDlgImage->m_image.GetWidth();
 	int nHeight = m_pDlgImage->m_image.GetHeight();
 	int nPitch = m_pDlgImage->m_image.GetPitch(); 
-	//memset(fm, 0, nWidth * nHeight);  // 초기화 되어 무게중심 못구함 주석 필요
+	//memset(fm, 0, nWidth * nHeight);  // 초기화 시켜 무게중심 못구함 -> 주석 필요
 	
-	// 랜덤 좌표 생성
-	int x = rand() % (nWidth-100); //원 반지름 값 고려하여 원 생성
+	// 랜덤 좌표 생성(원 반지름 값 고려하여 원 생성)
+	int x = rand() % (nWidth-100);
 	int y = rand() % (nHeight-100);
 	CRect rect;
 	m_pDlgImage->GetClientRect(&rect);
@@ -167,35 +166,37 @@ void CmfcPrjDlg::OnBnClickedBtnEdit()
 	//무게중심 빨간점 표시
 	m_pDlgImage->m_ptCenter = CPoint(x, y);
 
-
+	//display 원 나타내기 
 	m_pDlgImage->m_bDrawCircle = true; 
 	m_pDlgImage->Invalidate();
-	m_pDlgImage->UpdateWindow();
 }
 
 
 void CmfcPrjDlg::OnBnClickedBtnData()
 {
+	//객체 정보 가져오기
 	unsigned char* fm = (unsigned char*)m_pDlgImage->m_image.GetBits();
 	int nWidth = m_pDlgImage->m_image.GetWidth();
 	int nHeight = m_pDlgImage->m_image.GetHeight();
 	int nPitch = m_pDlgImage->m_image.GetPitch();
 
-
 	//랜덤 원형 좌표 가져오기
 	CPoint center = m_ptRandomCircleCenter;
 	int radius = rand() % 81 + 20;
 
-	int nTh = 0x80;
+	//원의 중심 좌표와 반지름 값을 이용하여 무게 중심 구하기
+	int nTh = 0x80; //밝기값
 	int nSumX = 0;
 	int nSumY = 0;
 	int nCount = 0;
+
 	CRect rect(center.x - radius, center.y - radius, center.x + radius, center.y + radius);
 	rect.NormalizeRect();
-
+	
+	//픽셀의 평균 좌표 = 무게중심  
 	for (int j = rect.top; j < rect.bottom; j++) {
 		for (int i = rect.left; i < rect.right; i++) {
-			if (fm[j * nPitch + i] > nTh) { // 중심값 구하기
+			if (fm[j * nPitch + i] > nTh) { 
 				nSumX += i;
 				nSumY += j;
 				nCount++;
@@ -206,10 +207,9 @@ void CmfcPrjDlg::OnBnClickedBtnData()
 	double dCenterX = (double)nSumX / nCount; 
 	double dCenterY = (double)nSumY / nCount;
 
-	cout << dCenterX << "\t" << dCenterY << endl;
+	cout << dCenterX << "\t" << dCenterY << endl; //원의 중심 좌표
 }
 	
-
 
 
 
