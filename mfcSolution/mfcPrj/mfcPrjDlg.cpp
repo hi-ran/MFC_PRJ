@@ -152,8 +152,8 @@ void CmfcPrjDlg::OnBnClickedBtnEdit()
 	//memset(fm, 0, nWidth * nHeight);  // 초기화 되어 무게중심 못구함 주석 필요
 	
 	// 랜덤 좌표 생성
-	int x = rand() % nWidth;
-	int y = rand() % nHeight;
+	int x = rand() % (nWidth-100); //원 반지름 값 고려하여 원 생성
+	int y = rand() % (nHeight-100);
 	CRect rect;
 	m_pDlgImage->GetClientRect(&rect);
 
@@ -170,6 +170,7 @@ void CmfcPrjDlg::OnBnClickedBtnEdit()
 
 	m_pDlgImage->m_bDrawCircle = true; 
 	m_pDlgImage->Invalidate();
+	m_pDlgImage->UpdateWindow();
 }
 
 
@@ -183,12 +184,15 @@ void CmfcPrjDlg::OnBnClickedBtnData()
 
 	//랜덤 원형 좌표 가져오기
 	CPoint center = m_ptRandomCircleCenter;
+	int radius = rand() % 81 + 20;
 
 	int nTh = 0x80;
 	int nSumX = 0;
 	int nSumY = 0;
 	int nCount = 0;
-	CRect rect(0, 0, nWidth, nHeight);
+	CRect rect(center.x - radius, center.y - radius, center.x + radius, center.y + radius);
+	rect.NormalizeRect();
+
 	for (int j = rect.top; j < rect.bottom; j++) {
 		for (int i = rect.left; i < rect.right; i++) {
 			if (fm[j * nPitch + i] > nTh) { // 중심값 구하기
@@ -199,9 +203,8 @@ void CmfcPrjDlg::OnBnClickedBtnData()
 		}
 	}
 
-	double dCenterX = (double)nSumX / nCount; //int*int= int -> 하나를 double 형변환 
+	double dCenterX = (double)nSumX / nCount; 
 	double dCenterY = (double)nSumY / nCount;
-
 
 	cout << dCenterX << "\t" << dCenterY << endl;
 }

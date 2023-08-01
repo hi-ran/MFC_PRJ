@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "afxdialogex.h"
-#define MAX_POINT 1
+#define MAX_POINT 100
 
 // CDlgImg 대화 상자
 class CDlgImg : public CDialogEx
@@ -12,7 +12,7 @@ public:
 	virtual ~CDlgImg();
 
 	CImage m_image;
-	int m_nDataCount = 1; //몇개 그릴것인지
+	int m_nDataCount = 50; //몇개 그릴것인지
 	CPoint m_ptData[MAX_POINT]; //좌표
 	CPoint m_ptCenter; //무게중심 점 
 

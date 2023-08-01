@@ -86,12 +86,15 @@ void CDlgImg::OnPaint()
 		pen.CreatePen(PS_SOLID, 2, COLOR_YELLOW); 
 		CPen* pOldPen = dc.SelectObject(&pen);
 
+		//랜덤 원크기
+		int radius = rand() % 81 + 20; //20~100
+
 		for (int i = 0; i < m_nDataCount; i++) {
 			rect.SetRect(m_ptData[i], m_ptData[i]);
-			rect.InflateRect(50, 50);
+			rect.InflateRect(radius, radius);
 			dc.Ellipse(rect);
 		}
-		//dc.SetPixel(m_ptCenter.x, m_ptCenter.y, COLOR_RED);
+		//dc.SetPixel(m_ptCenter.x, m_ptCenter.y,2,  COLOR_RED);
 		dc.SelectObject(pOldPen);
 
 		//중심 점 표시
